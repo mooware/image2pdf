@@ -1,0 +1,28 @@
+name: Pyinstaller
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+      with:
+        python-version: 3.14
+
+    - run: pip install -r requirements_dev.txt
+    - run: pyinstaller image2pdf.py
+    - uses: actions/upload-artifact@v2
+      with:
+        path: dist/image2pdf/image2pdf.exe
