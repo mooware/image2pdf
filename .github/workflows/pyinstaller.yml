@@ -22,7 +22,7 @@ jobs:
         python-version: 3.14
 
     - run: pip install -r requirements_dev.txt
-    - run: pyinstaller image2pdf.py
+    - run: pyinstaller --onefile image2pdf.py
     - uses: actions/upload-artifact@v4
       with:
         name: win-exe
