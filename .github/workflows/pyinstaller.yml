@@ -16,13 +16,14 @@ jobs:
       fail-fast: false
 
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-python@v2
+    - uses: actions/checkout@v5
+    - uses: actions/setup-python@v6
       with:
         python-version: 3.14
 
     - run: pip install -r requirements_dev.txt
     - run: pyinstaller image2pdf.py
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v4
       with:
+        name: win-exe
         path: dist/image2pdf/image2pdf.exe
