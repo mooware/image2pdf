@@ -3,7 +3,11 @@ def create_image_pdf(outpath, imagepaths):
     images = []
     for fn in imagepaths:
         print("reading image", fn)
-        images.append(Image.open(fn))
+        img = Image.open(fn)
+        # pillow does not want to write images with transparency to a pdf
+        if img.has_transparency_data:
+            img = img.convert("RGB")
+        images.append(img)
     print("writing pdf", outpath)
     images[0].save(outpath, "PDF" ,resolution=100.0, save_all=True, append_images=images[1:])
     print("done")
